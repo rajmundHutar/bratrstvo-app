@@ -4,7 +4,7 @@ function Person(props) {
     return (
         <button
             key={props.person.name}
-            className={props.person.selected ? 'selected' : ''}
+            className={"personSelector btn btn-lg " + (props.person.selected ? 'btn-success' : 'btn-danger')}
             onClick={props.onClick}
         >
             {props.person.name}
@@ -23,14 +23,14 @@ class PeopleList extends React.Component {
                 onClick={() => object.props.onPersonClick(i)}
             />)
         });
-        return <div>{rows}</div>;
+        return <div className="form-group">{rows}</div>;
     }
 
 }
 
 function Selector(props) {
-    return <div>
-        <select onChange={props.onGroupClick}>
+    return <div className="form-group">
+        <select className="form-control" onChange={props.onGroupClick}>
             <option value="2">Dvojice</option>
             <option value="3">Trojice</option>
             <option value="4">Čtveřice</option>
@@ -38,7 +38,8 @@ function Selector(props) {
             <option value="half">Poloviny</option>
             <option value="oneLine">Seřadit náhodně do řady</option>
         </select>
-        <button onClick={props.onShuffleClick}>Zamíchat</button>
+        <br/>
+        <button className="btn btn-primary btn-block" onClick={props.onShuffleClick}>Zamíchat</button>
     </div>
 }
 
@@ -50,7 +51,7 @@ class Result extends React.Component {
             for (let i = 0; i < this.props.resultList.length; i++) {
                 const colItems = this.props.resultList[i].map((person, i) =>
                     <div key={person.name} className="person">
-                        {i + 1}&nbsp;-&nbsp;{person.name}
+                        <span className="non-break">{i + 1}&nbsp;-&nbsp;{person.name}</span>
                     </div>
                 );
                 cols.push(<div key={i} className="column">{colItems}</div>);
@@ -81,7 +82,7 @@ class Game extends React.Component {
                 selected: true,
             }, {
                 name: 'Áda',
-                selected: false,
+                selected: true,
             }, {
                 name: 'Rozum',
                 selected: true,
@@ -90,10 +91,10 @@ class Game extends React.Component {
                 selected: true,
             }, {
                 name: 'Dvojka',
-                selected: false,
+                selected: true,
             }, {
                 name: 'Špunt',
-                selected: false,
+                selected: true,
             }, {
                 name: 'Váňa',
                 selected: true,
@@ -114,7 +115,7 @@ class Game extends React.Component {
                 selected: true,
             }, {
                 name: 'Libor',
-                selected: false,
+                selected: true,
             }],
         }
     }
@@ -149,12 +150,14 @@ class Game extends React.Component {
     }
 
     onGroupClick(event) {
-        this.setState({
-            grouping: event.target.value
-        });
+        this.shuffleResults(event.target.value);
     }
 
     onShuffleClick() {
+        this.shuffleResults(this.state.grouping);
+    }
+
+    shuffleResults(grouping) {
         let persons = this.state.persons.slice();
         persons = persons.map(function (p) {
             if (p.selected) {
@@ -169,26 +172,27 @@ class Game extends React.Component {
 
         let result = [];
 
-        if (this.state.grouping === 'oneLine') {
+        if (grouping === 'oneLine') {
             result.push(persons);
             this.setState({
                 resultList: result,
+                grouping: grouping,
             });
             return;
         }
 
-        let grouping = parseInt(this.state.grouping, 10);
-        if (this.state.grouping === 'half') {
-            grouping = Math.ceil(persons.length / 2);
+        let group = parseInt(grouping, 10);
+        if (grouping === 'half') {
+            group = Math.ceil(persons.length / 2);
         }
 
-        for (let i = 0; i < Math.ceil(persons.length / grouping); i++) {
-            result.push(persons.slice(i * grouping, (i * grouping) + grouping));
+        for (let i = 0; i < Math.ceil(persons.length / group); i++) {
+            result.push(persons.slice(i * group, (i * group) + group));
         }
         this.setState({
             resultList: result,
+            grouping: grouping,
         });
-
     }
 
 }

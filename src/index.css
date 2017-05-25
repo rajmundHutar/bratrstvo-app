@@ -1,33 +1,12 @@
 body {
     font: 14px "Century Gothic", Futura, sans-serif;
     margin: 20px;
+    background-color: #2D3A3A;
+    color: #FCFFFC;
 }
 
-ol, ul {
-    padding-left: 30px;
-}
-
-.board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-}
-
-.status {
-    margin-bottom: 10px;
-}
-
-.game {
-    display: flex;
-    flex-direction: row;
-}
-
-.game-info {
-    margin-left: 20px;
-}
-
-.selected {
-    background-color: #999999;
+.personSelector {
+    margin: 5px;
 }
 
 .resultList {
@@ -38,10 +17,18 @@ ol, ul {
 .column {
     text-align: center;
     flex: 1;
-    border: 1px solid black;
-    padding: 30px;
+    border: 1px solid #3e8f3e;
+    padding: 20px;
+    margin: 5px;
+    background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%);
+    border-radius: 10px;
 }
 
 .column .person {
     padding: 5px;
+    font-size: 18px;
+}
+
+.non-break {
+    white-space: nowrap;
 }
