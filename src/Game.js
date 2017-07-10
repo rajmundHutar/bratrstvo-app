@@ -59,7 +59,7 @@ class Result extends React.Component {
             return <div className="resultList">{cols}</div>
         } else {
             return (
-                <div>Vyber moznosti nahore</div>
+                <div>Vyber možnosti nahoře</div>
             )
         }
     }
