@@ -2,7 +2,7 @@
 
 Aplikace na zamíchání či rozdělení bratrů do skupin.
 
-K vyzkoušení [zde](https://rajmund.cz/projects/bratrstvo-app).
+K vyzkoušení [zde](https://rajmund.dev/projects/bratrstvo-app).
 
 ### Instalace:
 1) install `node.js` and `npm`
